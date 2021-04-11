@@ -1,0 +1,22 @@
+{
+  "db_info": {
+     "host" : "localhost",
+      "port": 3306,
+      "user"  : "sohoki",
+      "password": "ki007",
+      "database": "adliving",
+      "charset": "utf8",
+      "use_unicode" : true,
+      "autocommit": true
+  },
+  "mail_info": {
+    "mail_id": "automaxmaster",
+    "passwd": "godls914..",
+    "str_host": "smtp.naver.com",
+    "num_port": "465"
+  },
+  "path": {
+    "log_path": "C:/HEEIN/logs",
+    "temp_path": "C:/HEEIN/temp"
+  }
+}

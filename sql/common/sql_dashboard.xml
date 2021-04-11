@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<discript>
+    <query id="getCommonGroupCode">
+
+    </query>
+
+    <query id="getCommonDetailCode">
+      SELECT
+          dt.group_cd
+        , dt.code_cd
+        , dt.code_nm
+        , dt.etc
+        FROM t_codeDetailMaster dt
+          JOIN t_codeMaster ma
+            ON ma.group_cd = dt.group_cd
+          WHERE 1 = 1
+            AND ma.sts = 'C'
+            AND dt.sts = 'C'
+    </query>
+</discript>
+
+
+

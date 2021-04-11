@@ -1,0 +1,782 @@
+{% extends 'default.html' %}
+
+{% block content %}
+
+    <script type="text/javascript" src="../static/js/common.js"></script>
+    <script type="text/javascript" src="../static/js/pgwslideshow.js"></script>
+    <script type="text/javascript" src="../static/js/pgwslideshow.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/pgwslideshow.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/pgwslideshow.min.css"/>
+    <style type="text/css">
+        .my-row-custom-class {
+            color: blue;
+        }
+     </style>
+
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <div class="widget-header">
+        <div class="row">
+            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                <h4></h4>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-2 mb-2"><label>매물방식</label>
+                <select id="select2" name="job2" class="form-control form-control-sm" ></select>
+            </div>
+
+            <div class="col-md-2 mb-2"><label>권역별</label>
+                <select id="select3" name="job3" class="form-control form-control-sm" ></select>
+            </div>
+
+            <div class="col-md-2 mb-2"><label>업종1,2</label>
+                <select id="select4" name="job4" class="form-control form-control-sm" ></select>
+            </div>
+
+             <div class="col-md-2 mb-2"><label>해당층</label>
+                <select id="select5" name="job5" class="form-control form-control-sm" ></select>
+            </div>
+
+            <div class="col-md-2 mb-2"><label>전용평수</label>
+                <select id="select6" name="job6" class="form-control form-control-sm" ></select>
+            </div>
+            <div class="col-md-2 mb-2"><label>보증금</label>
+                <select id="select7" name="job" class="form-control form-control-sm" ></select>
+            </div>
+         </div>
+
+         <div class="form-row">
+            <div class="col-md-2 mb-2"><label>임대료</label>
+                <select id="select8" name="job" class="form-control form-control-sm" ></select>
+            </div>
+            <div class="col-md-2 mb-2"><label>매매평단가</label>
+                <select id="select9" name="job" class="form-control form-control-sm" ></select>
+            </div>
+            <div class="col-md-2 mb-2"><label>수익률</label>
+                <select id="select10" name="job" class="form-control form-control-sm" ></select>
+            </div>
+            <div class="col-md-2 mb-2"><label>전세평단가</label>
+                <select id="select11" name="job" class="form-control form-control-sm" ></select>
+            </div>
+            <div class="col-md-2 mb-2"><label>전세금액</label>
+                <select id="select12" name="job" class="form-control form-control-sm" ></select>
+            </div>
+             <div class="col-md-2 mb-2"><label>상호</label>
+                <input type="text" id="input1" name="job" class="form-control form-control-sm" onKeyDown="onKeyDown();" ></input>
+            </div>
+         </div>
+        <div class="form-row">
+            <div class="col-md-2 mb-2"><label>빌딩명</label>
+                <input type="text" id="input2" name="job" class="form-control form-control-sm" onKeyDown="onKeyDown();" ></input>
+            </div>
+            <div class="col-md-2 mb-2"><label>소유자</label>
+                <input type="text" id="input3" name="job" class="form-control form-control-sm" onKeyDown="onKeyDown();" ></input>
+            </div>
+            <div class="col-md-2 mb-2"><label>소유자주소</label>
+                <input type="text" id="input4" name="job" class="form-control form-control-sm" onKeyDown="onKeyDown();" ></input>
+            </div>
+
+            <div class="col-md-2 mb-2"><label>미표시 매물표시 여부</label>
+                <div class="form-check" style="text-align: center;">
+                  <input class="form-check-input" type="checkbox" value="" id="check1">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-2 mb-2"><label>최신버전 보기</label>
+                <div class="form-check" style="text-align: center;">
+                  <input class="form-check-input" type="checkbox" value="" id="check2" checked>
+                </div>
+            </div>
+            <div class="col-md-2 mb-2"><label>검색매물수</label>
+                    <input type="text" id="output1" name="job" class="form-control form-control-sm" disabled ></input>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-2 mb-2">
+             <label></label>
+             <button class="form-control form-control-sm" id="search_btn" type="button" style="border-radius: 10px;width:150px" onclick="albumCalculateInfo.search_btn_clicked()">검색
+             </button>
+            </div>
+            <div class="col-md-2 mb-2">
+             <label></label>
+             <button class="form-control form-control-sm" id="new_btn" type="button" style="border-radius: 10px;width:150px" onclick="albumCalculateInfo.btn_new_clicked()">신규
+             </button>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="container-fluid" style="min-height: calc(136px - 136px);margin-top:200px;">
+                <div>
+                    <i class="fa fa-plus-square" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"></i>
+                    <span style="margin-left:10px;">상세 조건</span>
+                </div>
+                <div class="collapse" id="collapseExample">
+                    <div class="well" style="height: 70px;">
+
+                        <div class="form-check form-check-inline" style="float: left;">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" checked>
+                            <label class="form-check-label" for="inlineCheckbox1">권역별</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" checked>
+                            <label class="form-check-label" for="inlineCheckbox2">빌딩명</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option2" checked>
+                            <label class="form-check-label" for="inlineCheckbox3">호수</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option3" checked>
+                            <label class="form-check-label" for="inlineCheckbox4">매물방식</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option4" checked>
+                            <label class="form-check-label" for="inlineCheckbox5">접수일자</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="option5" checked>
+                            <label class="form-check-label" for="inlineCheckbox6">상호명</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox7" value="option6" checked>
+                            <label class="form-check-label" for="inlineCheckbox7">입주일</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox8" value="option7" checked>
+                            <label class="form-check-label" for="inlineCheckbox8">분양(평)</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox9" value="option8" checked>
+                            <label class="form-check-label" for="inlineCheckbox9">전용(평)</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox10" value="option8" checked>
+                            <label class="form-check-label" for="inlineCheckbox10">매매가</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox11" value="option9" checked>
+                            <label class="form-check-label" for="inlineCheckbox11">보증금</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox12" value="option10" checked>
+                            <label class="form-check-label" for="inlineCheckbox12">월세</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox13" value="option11" checked>
+                            <label class="form-check-label" for="inlineCheckbox13">권리금</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox14" value="option12" checked>
+                            <label class="form-check-label" for="inlineCheckbox14">관리비</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox15" value="option12" checked>
+                            <label class="form-check-label" for="inlineCheckbox15">총비용</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox16" value="option12" checked>
+                            <label class="form-check-label" for="inlineCheckbox16">분양(M2)</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox17" value="option12" checked>
+                            <label class="form-check-label" for="inlineCheckbox17">전용(M2)</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox18" value="option12" checked>
+                            <label class="form-check-label" for="inlineCheckbox18">소유자</label>
+                        </div>
+                        <div class="form-check form-check-inline" style="float: left;margin-left:20px">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox19" value="option12" checked>
+                            <label class="form-check-label" for="inlineCheckbox19">소유자주소</label>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+<!--
+            <div class="col-md-2 mb-2"><label>검색기간(from)</label><input class="form-control form-control-sm" id="select_month_from" type="month" /></div>
+            <div class="col-md-2 mb-2"><label>~ (to)</label><input class="form-control form-control-sm" id="select_month_to" type="month" /></div>
+            <div class="col-md-2 mb-2"><label>앨범명</label><input class="form-control form-control-sm" id="st_album_nm" type="text" placeholder="앨범명을 기입하세요" /></div>
+            <div class="col-md-2 mb-2"><label>권리사명</label><input class="form-control form-control-sm" id="st_neighbor_rightor" type="text" placeholder="권리사명을 기입하세요" /></div>
+
+
+-->
+
+
+
+    </div>
+
+    <div id="jsGrid"></div>
+
+    <script>
+
+        // in JavaScript Code
+        function onKeyDown()
+        {
+             if(event.keyCode == 13)
+             {
+                  //TODO : 실행시킬 코드
+                  albumCalculateInfo.search_btn_clicked()
+             }
+        }
+
+
+        $('#select2').change(function(){
+            //초기화
+            if (  $('#select2 option:checked').val() == "") {
+                var i;
+                for (i = 0; i < 10; i++) {
+                  document.getElementById('inlineCheckbox'+(i+1)).checked = false;
+                  $('#inlineCheckbox'+(i+1)).trigger("click");
+                }
+
+            }
+            else if (  $('#select2 option:checked').val()[0] == "1") { // 사무실
+                document.getElementById('inlineCheckbox1').checked = true;
+                document.getElementById('inlineCheckbox2').checked = true;
+                document.getElementById('inlineCheckbox3').checked = true;
+                $('#inlineCheckbox1').trigger("click");
+                $('#inlineCheckbox2').trigger("click");
+                $('#inlineCheckbox3').trigger("click");
+            }
+            else if ($('#select2 option:checked').val()[0] == "2") { // 상가
+                document.getElementById('inlineCheckbox14').checked = true;
+                $('#inlineCheckbox14').trigger("click");
+            }
+            else if ($('#select2 option:checked').val()[0] == "3" ||
+                $('#select2 option:checked').val()[0] == "4") { // 아파트, 오피스텔
+                document.getElementById('inlineCheckbox7').checked = true; // 상호
+                document.getElementById('inlineCheckbox8').checked = true; // 업종1
+                document.getElementById('inlineCheckbox9').checked = true; // 업종2
+                document.getElementById('inlineCheckbox14').checked = true; //관리비
+                $('#inlineCheckbox7').trigger("click");
+                $('#inlineCheckbox8').trigger("click");
+                $('#inlineCheckbox9').trigger("click");
+                $('#inlineCheckbox14').trigger("click");
+
+            }
+        });
+
+        $('#inlineCheckbox1').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","district","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","district","visible",false);
+            }
+        });
+         $('#inlineCheckbox2').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","building_nm","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","building_nm","visible",false);
+            }
+        });
+         $('#inlineCheckbox3').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","hosu","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","hosu","visible",false);
+            }
+        });
+         $('#inlineCheckbox4').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","category_nm","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","category_nm","visible",false);
+            }
+        });
+         $('#inlineCheckbox5').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","rec_dt","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","rec_dt","visible",false);
+            }
+        });
+         $('#inlineCheckbox6').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","brand_nm","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","brand_nm","visible",false);
+            }
+        });
+         $('#inlineCheckbox7').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","move_in_dt","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","move_in_dt","visible",false);
+            }
+        });
+         $('#inlineCheckbox8').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","bun_py_size","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","bun_py_size","visible",false);
+            }
+        });
+         $('#inlineCheckbox9').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","real_py_size","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","real_py_size","visible",false);
+            }
+        });
+         $('#inlineCheckbox10').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","sale_price","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","sale_price","visible",false);
+            }
+        });
+         $('#inlineCheckbox11').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","deposit","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","deposit","visible",false);
+            }
+        });
+         $('#inlineCheckbox12').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","monthly","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","monthly","visible",false);
+            }
+        });
+         $('#inlineCheckbox13').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","right_money","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","right_money","visible",false);
+            }
+        });
+         $('#inlineCheckbox14').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","maintance_cost","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","maintance_cost","visible",false);
+            }
+        });
+         $('#inlineCheckbox15').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","total_cost","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","total_cost","visible",false);
+            }
+        });
+         $('#inlineCheckbox16').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","bun_m2_size","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","bun_m2_size","visible",false);
+            }
+        });
+         $('#inlineCheckbox17').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","real_m2_size","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","real_m2_size","visible",false);
+            }
+        });
+         $('#inlineCheckbox18').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","lessor1","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","lessor1","visible",false);
+            }
+        });
+         $('#inlineCheckbox19').click(function(){
+            if($(this).is(':checked')){
+                $("#jsGrid").jsGrid("fieldOption","address","visible",true);
+            } else {
+                $("#jsGrid").jsGrid("fieldOption","address","visible",false);
+            }
+        });
+
+
+        class AlbumCalculateInfo {
+            //생성자
+            constructor() {
+                this.searchParam = new Object();
+            }
+            getCommonCode(code_cd) {
+                const preferences = new Promise((resolve, reject) => {
+                    let xhr = new XMLHttpRequest();
+                    xhr.onload = function () {
+                        if (xhr.status == 200) {
+                            this.searchParam = JSON.parse(xhr.responseText);
+                            console.log(xhr.status);
+                            resolve({
+                                searchParam: this.searchParam,
+                            })
+                        }
+                    }
+                    xhr.open('GET', '/common/detailCode?group_cd=' + code_cd);
+                    xhr.send();
+                    console.log("11111111111");
+                });
+                return preferences;
+            }
+
+            btn_popup_clicked(_args) {
+                var url = '/mamul_desc?arg1='+_args.item['building_nm'] + '&arg2='+_args.item['district'] +'&arg3='+_args.item['hosu'] +'&arg4='+_args.item['version'];
+                console.log(url);
+                const w = 1100;
+                const h = 1000;
+                const y = window.top.outerHeight / 2 + window.top.screenY + ( h / 2);
+                const x = window.top.outerWidth / 2 + window.top.screenX - ( w / 2);
+                var target = 'pop';
+                var windowObj = window.open(url, target, `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${y}, left=${x}`, false);
+            }
+			btn_new_clicked(_args) {
+                var url = '/mamul_desc?';
+                console.log(url);
+                const w = 1100;
+                const h = 1000;
+                const y = window.top.outerHeight / 2 + window.top.screenY + ( h / 2);
+                const x = window.top.outerWidth / 2 + window.top.screenX - ( w / 2);
+                var target = 'pop';
+                var windowObj = window.open(url, target, `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${y}, left=${x}`, false);
+            }
+
+            setThousandSepa(_number) {
+                if(_number > 0 )
+                    return _number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                else
+                    return 0
+            }
+
+            search_btn_clicked() {
+                this.searchParam = new Object();
+                this.searchParam = putParam(this.searchParam,"default","defualt");
+                this.searchParam = putParam(this.searchParam,"select2", $("#select2 option:selected").val());
+                this.searchParam = putParam(this.searchParam,"select3", $("#select3 option:selected").text());
+                this.searchParam = putParam(this.searchParam,"select4", $("#select4 option:selected").text());
+                this.searchParam = putParam(this.searchParam,"select5", $("#select5 option:selected").text());
+                this.searchParam = putParam(this.searchParam,"select6", $("#select6 option:selected").val());
+                this.searchParam = putParam(this.searchParam,"select7", $("#select7 option:selected").val());
+                this.searchParam = putParam(this.searchParam,"select8", $("#select8 option:selected").val());
+                this.searchParam = putParam(this.searchParam,"select9", $("#select9 option:selected").val());
+                this.searchParam = putParam(this.searchParam,"select10", $("#select10 option:selected").text());
+                this.searchParam = putParam(this.searchParam,"select11", $("#select11 option:selected").text());
+                this.searchParam = putParam(this.searchParam,"select12", $("#select12 option:selected").text());
+
+                this.searchParam = putParam(this.searchParam,"input1",document.getElementById("input1").value);
+                this.searchParam = putParam(this.searchParam,"input2",document.getElementById("input2").value);
+                this.searchParam = putParam(this.searchParam,"input3",document.getElementById("input3").value);
+                this.searchParam = putParam(this.searchParam,"input4",document.getElementById("input4").value);
+
+
+                if(document.getElementById("check1").checked == true)
+                    this.searchParam = putParam(this.searchParam,"check1","checked");
+                else
+                    this.searchParam = putParam(this.searchParam,"check1","notChecked");
+
+                if(document.getElementById("check2").checked == true)
+                    this.searchParam = putParam(this.searchParam,"check2","checked");
+                else
+                    this.searchParam = putParam(this.searchParam,"check2","notChecked");
+
+
+
+                console.log( this.searchParam );
+                $("#jsGrid").jsGrid("loadData",this.searchParam);
+
+            }
+
+            createViewHandler = function (param, param2) {
+                let TTYPE = param;
+                let USTYPE = param2;
+                console.log(TTYPE)
+                console.log(TTYPE[0])
+                console.log(TTYPE.length)
+                document.getElementById("output1").value = 0;
+
+
+                var default_option = $("<option value=''></option>");
+                var default_option = $("<option value=''></option>");
+                $('#select2').empty();
+                $('#select2').append(default_option);
+                var default_option = $("<option value=''></option>");
+                $('#select3').empty();
+                $('#select3').append(default_option);
+                var default_option = $("<option value=''></option>");
+                $('#select4').empty();
+                $('#select4').append(default_option);
+                var default_option = $("<option value=''></option>");
+                $('#select5').empty();
+                $('#select5').append(default_option);
+                var default_option = $("<option value=''></option>");
+                $('#select6').empty();
+                $('#select6').append(default_option);
+                var default_option = $("<option value=''></option>");
+                $('#select7').empty();
+                $('#select7').append(default_option);
+                var default_option = $("<option value=''></option>");
+                $('#select8').empty();
+                $('#select8').append(default_option);
+                var default_option = $("<option value=''></option>");
+                $('#select9').empty();
+                $('#select9').append(default_option);
+                var default_option = $("<option value=''></option>");
+                $('#select10').empty();
+                $('#select10').append(default_option);
+                var default_option = $("<option value=''></option>");
+                $('#select11').empty();
+                $('#select11').append(default_option);
+                var default_option = $("<option value=''></option>");
+                $('#select12').empty();
+                $('#select12').append(default_option);
+
+                for(var count = 0; count < TTYPE.length; count++){
+                    //매물방식
+                    if(TTYPE[count]['group_cd'] == 'M02') {
+                        var option = $("<option value="+TTYPE[count]['code_cd'] +">"+TTYPE[count]['code_nm']+"</option>");
+                        console.log(TTYPE[count]['code_nm']);
+                        $('#select2').append(option);
+                    }
+                    //권역별
+                    if(TTYPE[count]['group_cd'] == 'T01') {
+                        var option = $("<option value="+TTYPE[count]['code_cd'] +">"+TTYPE[count]['code_nm']+"</option>");
+                        console.log(TTYPE[count]['code_nm']);
+                        $('#select3').append(option);
+                    }
+                    //업종
+                    if(TTYPE[count]['group_cd'] == 'R01') {
+                        var option = $("<option value="+TTYPE[count]['code_cd'] +">"+TTYPE[count]['code_nm']+"</option>");
+                        console.log(TTYPE[count]['code_nm']);
+                        $('#select4').append(option);
+                    }
+                    //전용평수
+                    if(TTYPE[count]['group_cd'] == 'P01') {
+                        var option = $("<option value="+TTYPE[count]['code_cd'] +">"+TTYPE[count]['code_nm']+"</option>");
+                        console.log(TTYPE[count]['code_nm']);
+                        $('#select6').append(option);
+                    }
+                    //해당층
+                    if(TTYPE[count]['group_cd'] == 'F01') {
+                        var option = $("<option value="+TTYPE[count]['code_cd'] +">"+TTYPE[count]['code_nm']+"</option>");
+                        console.log(TTYPE[count]['code_nm']);
+                        $('#select5').append(option);
+                    }
+
+                    //보증금
+                    if(TTYPE[count]['group_cd'] == 'E01') {
+                        var option = $("<option value="+TTYPE[count]['code_cd'] +">"+TTYPE[count]['code_nm']+"</option>");
+                        console.log(TTYPE[count]['code_nm']);
+                        $('#select7').append(option);
+                    }
+                    //임대료
+                    if(TTYPE[count]['group_cd'] == 'E02') {
+                        var option = $("<option value="+TTYPE[count]['code_cd'] +">"+TTYPE[count]['code_nm']+"</option>");
+                        console.log(TTYPE[count]['code_nm']);
+                        $('#select8').append(option);
+                    }
+                    //매매평단가
+                    if(TTYPE[count]['group_cd'] == 'E03') {
+                        var option = $("<option value="+TTYPE[count]['code_cd'] +">"+TTYPE[count]['code_nm']+"</option>");
+                        console.log(TTYPE[count]['code_nm']);
+                        $('#select9').append(option);
+                    }
+                    //수익률
+                    if(TTYPE[count]['group_cd'] == 'E04') {
+                        var option = $("<option value="+TTYPE[count]['code_cd'] +">"+TTYPE[count]['code_nm']+"</option>");
+                        console.log(TTYPE[count]['code_nm']);
+                        $('#select10').append(option);
+                    }
+                    //전세평단가
+                    if(TTYPE[count]['group_cd'] == 'P01') {
+                        var option = $("<option value="+TTYPE[count]['code_cd'] +">"+TTYPE[count]['code_nm']+"</option>");
+                        console.log(TTYPE[count]['code_nm']);
+                        $('#select11').append(option);
+                    }
+                    //전세금액액
+                   if(TTYPE[count]['group_cd'] == 'E05') {
+                        var option = $("<option value="+TTYPE[count]['code_cd'] +">"+TTYPE[count]['code_nm']+"</option>");
+                        console.log(TTYPE[count]['code_nm']);
+                        $('#select12').append(option);
+                    }
+                }
+
+
+
+
+                $(function () {
+                    $("#jsGrid").jsGrid({
+                        width: "100%",
+                        height: "700",
+                        inserting: false,
+                        sorting: true,
+                        paging: false,
+                        autoload: false,
+
+                        rowClick: function(args) {
+                            if(args.event.target.className == "my-row-custom-class jsgrid-cell jsgrid-align-center") {
+                                albumCalculateInfo.btn_popup_clicked(args)
+                            }
+                            // 클릭 클릭시
+                            /*
+                            if(args.item.item_desc)
+
+                                */
+                        },
+
+                        controller: {
+                            loadData: function(filter) {
+                                    for(let i in filter) {
+                                        console.log(filter[i])
+                                        if(filter[i] == '')
+                                            delete filter[i];
+                                    }
+                                    return $.ajax({
+                                        type: "GET"
+                                        , url: "/test2"
+                                        , data: filter
+                                        , dataType: "json"
+                                        , success: function () {  console.log('success'); }
+                                        , error: function (request,status,error) {
+                                            //status 200은 정상이기 때문에 예외처리함.
+                                            alert(error);
+                                            if(request.status != '200')
+                                                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                                        }
+                                        , complete: function (data) {
+                                            console.log('complete');
+                                            console.log(data);
+                                            console.log(data.responseJSON.length);
+                                            var row_num = data.responseJSON.length;
+                                            if(!data.responseJSON.length)
+                                                row_num = "0";
+                                            document.getElementById("output1").value = row_num;
+                                        }
+                                    });
+
+                            },
+                            updateItem: function(item) {
+                                var d = $.Deferred();
+                                console.log(item);
+                                $.ajax({
+                                    url: "/api/database",
+                                    data: JSON.stringify(item),
+                                    type: "PUT",
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                }).done(function(response) {
+                                    d.resolve(response);
+                                });
+                                return d.promise();
+                            },
+                            deleteItem: function(item) {
+                                var d = $.Deferred();
+                                $.ajax({
+                                    url: "/api/database",
+                                    data: item,
+                                    type: "DELETE",
+                                }).done(function(response) {
+                                    d.resolve(response);
+                                });
+                                return d.promise();
+                            },
+                            insertItem: function(item) {
+                                var d = $.Deferred();
+                                $.ajax({
+                                    url: "/api/database",
+                                    data: JSON.stringify(item),
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    type: "POST",
+                                }).done(function(response) {
+                                    d.resolve(response);
+                                });
+                                return d.promise();
+                            },
+
+
+                        },
+
+                        fields: [
+                            { name: "item_desc",     type: "text",     title: "상세보기",   align: "center" , width: 80,
+                              cellRenderer:
+                                function(item, value){
+                                  return $("<td>").addClass("my-row-custom-class").append(item);
+                                },
+                               itemTemplate: function (value, item) {
+                                    console.log("itemTemplate");
+                                    console.log(value);
+                                    console.log(item);
+                                    return  value;
+                                }
+                            },
+                            { name: "district",      type: "text",     width: 100, validate: "required" ,title:"권역별"},
+                            { name: "building_nm",   type: "text",     width: 100, validate: "required" ,title:"빌딩명"},
+                            { name: "hosu",          type: "text",     width: 80, validate: "required" ,title:"호수"},
+                            { name: "category_nm",   type: "text",     width: 80, validate: "required" ,title:"매물방식"},
+                            { name: "rec_dt",        type: "text",     width: 80, validate: "required" ,title:"접수일자"},
+                            { name: "brand_nm",      type: "text",     width: 150, validate: "required" ,title:"상호명"},
+                            { name: "move_in_dt",   type: "text",     width: 80, validate: "required" ,title:"입주일"},
+                            { name: "bun_py_size",   type: "text",     width: 80, validate: "required" ,title:"분양(평)"},
+                            { name: "real_py_size",  type: "text",     width: 80, validate: "required" ,title:"전용(평)"},
+                            { name: "sale_price",    type: "text",     width: 60, validate: "required" ,title:"매매가", itemTemplate: function (value) { return albumCalculateInfo.setThousandSepa(value); }},
+                            { name: "deposit",       type: "text",     width: 60, validate: "required" ,title:"보증금", itemTemplate: function (value) { return albumCalculateInfo.setThousandSepa(value); }},
+                            { name: "monthly",       type: "text",     width: 60, validate: "required" ,title:"월세", itemTemplate: function (value) { return albumCalculateInfo.setThousandSepa(value); }},
+                            { name: "right_money",   type: "text",     width: 60, validate: "required" ,title:"권리금", itemTemplate: function (value) { return albumCalculateInfo.setThousandSepa(value); }},
+                            { name: "maintance_cost",type: "text",     width: 60, validate: "required" ,title:"관리비", itemTemplate: function (value) { return albumCalculateInfo.setThousandSepa(value); }},
+                            { name: "total_cost"    ,type: "text",     width: 60, validate: "required" ,title:"총비용", itemTemplate: function (value) { return albumCalculateInfo.setThousandSepa(value); }},
+                            { name: "sale_py_rating"    ,type: "text",     width: 60, validate: "required" ,title:"매매평단가", itemTemplate: function (value) { return albumCalculateInfo.setThousandSepa(value); }},
+                            { name: "monthly_py"    ,type: "text",     width: 60, validate: "required" ,title:"임대평단가"},
+                            { name: "bun_m2_size",   type: "text",     width: 80, validate: "required" ,title:"분양(M2)"},
+                            { name: "real_m2_size",  type: "text",     width: 80, validate: "required" ,title:"전용(M2)"},
+                            { name: "lessor1",       type: "text",     width: 80, validate: "required" ,title:"소유자"},
+                            { name: "address",       type: "text",     width: 150, validate: "required" ,title:"주소"},
+                            /*
+                            { name: "real_py_raing", type: "text",     width: 150, validate: "required" ,title:"전용율"},
+                            { name: "sector1",       type: "text",     width: 150, validate: "required" ,title:"업종1"},
+                            { name: "sector2",       type: "text",     width: 150, validate: "required" ,title:"업종2"},
+
+                            { name: "floar",         type: "text",     width: 150, validate: "required" ,title:"층"},
+                            { name: "facing",        type: "text",     width: 150, validate: "required" ,title:"향"},
+                            { name: "etc",           type: "text",     width: 150, validate: "required" ,title:"비고"},
+                            */
+                            {
+                                type: "control",
+                                modeSwitchButton: false,
+                                editButton: false,
+                                deleteButton:false
+                            }
+
+
+                        ]
+                    });
+                });
+             }
+             }
+
+            const albumCalculateInfo = new AlbumCalculateInfo();
+            let lastParam = {};
+            albumCalculateInfo.getCommonCode('TTYPE')
+                .then(returns => {
+                    console.log(returns.searchParam);
+                    lastParam.param1 = returns.searchParam;
+                    return albumCalculateInfo.getCommonCode('USTYPE');
+                })
+                .then(returns2 => {
+                    lastParam.param2 = returns2.searchParam;
+                    albumCalculateInfo.createViewHandler(lastParam.param1, lastParam.param2);
+
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            function test() {
+                albumCalculateInfo.search_btn_clicked();
+            }
+    </script>
+{% endblock %}

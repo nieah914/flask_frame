@@ -1,0 +1,302 @@
+{% extends 'default.html' %}
+
+{% block content %}
+
+
+
+
+
+
+    <div class="widget-header">
+        <div class="row">
+            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                <h4></h4>
+            </div>
+        </div>
+        <div class="form-row">
+
+
+<!--
+            <div class="col-md-2 mb-2"><label>검색기간(from)</label><input class="form-control form-control-sm" id="select_month_from" type="month" /></div>
+            <div class="col-md-2 mb-2"><label>~ (to)</label><input class="form-control form-control-sm" id="select_month_to" type="month" /></div>
+            <div class="col-md-2 mb-2"><label>앨범명</label><input class="form-control form-control-sm" id="st_album_nm" type="text" placeholder="앨범명을 기입하세요" /></div>
+            <div class="col-md-2 mb-2"><label>권리사명</label><input class="form-control form-control-sm" id="st_neighbor_rightor" type="text" placeholder="권리사명을 기입하세요" /></div>
+
+
+-->
+        </div>
+
+
+
+    </div>
+    <table style="border-radius: 10px;width:100%;height:100%;">
+        <tr>
+            <td colspan="4", style="width:50%; height:100%;" >
+                <div id="jsGrid" style="width:40%; height:100%;"></div>
+            </td>
+            <td></td>
+            <td colspan="4", style="width:50%; height:100%;" >
+                <div id="jsGrid2" style="width:40%; height:100%;"></div>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+
+    <script>
+        class CodeMaster{
+            //생성자
+            constructor(){
+
+            }
+            createViewHandler = function()  {
+                let searchParam = new Object();
+                let searchParamForDetail = new Object();
+                function test_btn_clicked() {
+                    // update specified item with particular data (row DomNode or row jQueryElement can be used instead of item reference)
+                    $("#grid").jsGrid("updateItem", item, { ID: 1, Name: "John", Age: 25, Country: 2 }).done(function() {
+                        console.log("update completed");
+                    });
+                }
+
+
+                // clicked event handler
+                function search_btn_clicked() {
+
+
+
+                    searchParam['select_month_from'] = document.getElementById("select_month_from").value;
+                    searchParam['select_month_to'] = document.getElementById("select_month_to").value;
+                    searchParam['st_neighbor_rightor'] = document.getElementById("st_neighbor_rightor").value;
+                    searchParam['st_album_nm'] = document.getElementById("st_album_nm").value;
+
+                }
+
+                let selectedItem ={};
+                let mode ="";
+
+
+                let clients = [];
+                let st_album_select_list = [];
+                let st_rightor_select_list = [];
+                let items2 =  [{ Name: "회사", type: 'C' },{ Name: "신규", type: 'N' },{ Name: "개인", type: 'S' }];
+
+                $(function() {
+                    $("#jsGrid").jsGrid({
+                        width: "100%",
+                        height: "800",
+                        filtering: false,
+                        headercss: "background-color= #F06923;",
+                        editing: true,
+                        sorting: true,
+                        inserting: true,
+                        deleteConfirm: "세부코드를 삭제하시겠습니까?",
+                        paging: true,
+                        autoload: true,
+                        rowClick: function(args) {
+                            var $target = $(args.event.target);
+
+                            searchParamForDetail = args.item;
+                            console.log(searchParamForDetail);
+                            console.log(searchParamForDetail);
+                            console.log(searchParamForDetail);
+                            console.log(searchParamForDetail);
+                            $("#jsGrid2").jsGrid("loadData");
+                        },
+                        controller: {
+                                    loadData: function(filter) {
+                                            for(let i in searchParam) {
+                                                if(searchParam[i] == '')
+                                                    delete searchParam[i];
+                                            }
+
+                                            return $.ajax({
+                                                type: "GET",
+                                                dataType: "json",
+                                                url: "/admin/codeMaster/groupCode",
+                                                data: searchParam,
+                                                success: function (request,status,error) {   console.log(request) }
+                                            });
+                                    },
+                                    insertItem: function(item) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/admin/codeMaster/groupCode",
+                                            data: item
+                                            ,dataType: "text"
+                                            , success: function () {   alert('추가되었습니다.'); }
+                                            , error: function (request,status,error) {
+                                                //status 200은 정상이기 때문에 예외처리함.
+                                                alert(error);
+                                                if(request.status != '200')
+                                                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                                            }
+                                            , complete: function () {  console.log('complete'); }
+                                        });
+                                        return;
+                                    },
+                                    updateItem: function(item) {
+                                        console.log(item)
+                                        console.log(item)
+                                        console.log(item)
+                                        $.ajax({
+                                            type: "PUT",
+                                            url: "/admin/codeMaster/groupCode",
+                                            data: item
+                                            ,dataType: "text"
+                                            , success: function () {  alert('저장되었습니다.'); }
+                                            , error: function (request,status,error) {
+                                                //status 200은 정상이기 때문에 예외처리함.
+                                                alert(error);
+                                                if(request.status != '200')
+                                                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                                            }
+                                            , complete: function () {  console.log('complete'); }
+                                        });
+                                        return;
+                                    },
+                                    deleteItem: function(item) {
+                                        $.ajax({
+                                            type: "DELETE",
+                                            url: "/admin/codeMaster/delete",
+                                            data: item
+                                            ,dataType: "text"
+                                            , success: function () {  alert('삭제되었습니다.'); }
+                                            , error: function (request,status,error) {
+                                                //status 200은 정상이기 때문에 예외처리함.
+                                                alert(error);
+                                                if(request.status != '200')
+                                                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                                            }
+                                            , complete: function () {  console.log('complete'); }
+                                        });
+                                        return;
+                                    }
+                                },
+                        fields: [
+                            { name: "group_cd",   type: "text",     width: 30,  validate: "required",  title:"그룹 코드", align:"left"},
+                            { name: "group_nm",   type: "text",     width: 40,  validate: "required",  title:"그룹 명",   align:"left", items: [{ Name: "회사", type: 'C' },{ Name: "신규", type: 'N' },{ Name: "개인", type: 'S' }], valueField: "type", textField: "Name"  },
+                            { name: "use_yn",     type: "checkbox", width: 80,  title:"사용유무",  align:"left", sorting: false,autosearch: true },
+                            { name: "etc",        type: "text",     width: 100, title:"",          align:"left" },
+                            { type: "control", deleteButton: true, editButton:true}
+                            ],
+                        onItemUpdating: function(args) {
+                            // cancel update of the item with empty 'name' field
+                            alert('업데이트 되었습니다.');
+                        }
+                    });
+
+                });
+
+
+
+
+                $(function() {
+                    $("#jsGrid2").jsGrid({
+                        width: "100%",
+                        height: "800",
+                        filtering: false,
+                        headercss: "background-color= #F06923;",
+                        inserting: true,
+                        editing: true,
+                        sorting: true,
+                        deleteConfirm: "세부코드를 삭제하시겠습니까?",
+                        paging: true,
+                        autoload: false,
+                        controller: {
+                                    loadData: function(filter) {
+                                            for(let i in searchParamForDetail) {
+                                                if(searchParamForDetail[i] == '')
+                                                    delete searchParamForDetail[i];
+                                            }
+                                            return $.ajax({
+                                                type: "GET"
+                                                , url: "/admin/codeMaster/detailCode"
+                                                , data: searchParamForDetail
+                                                , dataType: "json"
+                                                , success: function () {  console.log('success'); }
+                                                , error: function (request,status,error) {
+                                                    //status 200은 정상이기 때문에 예외처리함.
+                                                    alert(error);
+                                                    if(request.status != '200')
+                                                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                                                }
+                                                , complete: function () {  console.log('complete'); }
+                                            });
+                                    },
+                                    insertItem: function(item) {
+                                        //- 그룹에서 선택한 그룹코드가 세부코드에 자동으로 들어감
+                                        item.group_cd = searchParamForDetail.group_cd;
+                                        console.log(item);
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/admin/codeMaster/detailCode",
+                                            data: item
+                                            ,dataType: "text"
+                                            , success: function () {   alert('추가되었습니다.'); }
+                                            , error: function (request,status,error) {
+                                                //status 200은 정상이기 때문에 예외처리함.
+                                                alert(error);
+                                                if(request.status != '200')
+                                                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                                            }
+                                            , complete: function () {  console.log('complete'); }
+                                        });
+                                        return;
+                                    },
+                                    updateItem: function(item) {
+                                        $.ajax({
+                                            type: "PUT",
+                                            url: "/admin/codeMaster/detailCode",
+                                            data: item
+                                            ,dataType: "text"
+                                            , success: function () {  alert('저장되었습니다.'); }
+                                            , error: function (request,status,error) {
+                                                //status 200은 정상이기 때문에 예외처리함.
+                                                alert(error);
+                                                if(request.status != '200')
+                                                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                                            }
+                                            , complete: function () {  console.log('complete'); }
+                                        });
+                                        return;
+                                    },
+                                    deleteItem: function(item) {
+                                        $.ajax({
+                                            type: "DELETE",
+                                            url: "/admin/codeMaster/detailCode/delete",
+                                            data: item
+                                            ,dataType: "text"
+                                            , success: function () {  alert('삭제되었습니다.'); }
+                                            , error: function (request,status,error) {
+                                                //status 200은 정상이기 때문에 예외처리함.
+                                                alert(error);
+                                                if(request.status != '200')
+                                                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                                            }
+                                            , complete: function () {  console.log('complete'); }
+                                        });
+                                        return;
+                                    }
+                                },
+                        fields: [
+                            { name: "group_cd",  type: "text",     width: 30,                         title:"그룹코드",  align:"left", readOnly:true},
+                            { name: "code_cd",   type: "text",     width: 30,  validate: "required",  title:"상세코드",  align:"left"},
+                            { name: "code_nm",   type: "text",     width: 40,  validate: "required",  title:"상세코드명",align:"left"},
+                            { type: "control", deleteButton: true, editButton:true}
+                            ],
+                        onItemUpdating: function(args) {
+                            // cancel update of the item with empty 'name' field
+                            alert('업데이트 되었습니다.');
+                        }
+                    });
+
+                });
+            }
+        }
+
+
+
+        const codeMaster = new CodeMaster();
+        codeMaster.createViewHandler();
+    </script>
+{% endblock %}

@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+  <script type="text/javascript" src="../static/js/common.js"></script>
+  <script type="text/javascript" src="../static/js/pgwslideshow.js"></script>
+  <script type="text/javascript" src="../static/js/pgwslideshow.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../static/css/pgwslideshow.css">
+  <link rel="stylesheet" type="text/css" href="../static/css/pgwslideshow.min.css">
+
+
+
+  <title>Title</title>
+</head>
+
+<body>
+  <div style="width:100%; height:100%;margin:0 auto;margin-top:50px;">
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#tabmenu_01" data-toggle="tab">매물정보</a>
+      </li>
+      <!--
+            <li><a href="#tabmenu_02" data-toggle="tab">임대정보</a></li>
+            <li><a href="#tabmenu_03" data-toggle="tab">임차정보</a></li>
+            -->
+      <li>
+        <a href="#tabmenu_04" data-toggle="tab">사진</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="tabmenu_01">
+        <div class="container" style="width:100%">
+          <form name="f" method="post">
+            <div class="col-sm-12 pt-3">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">
+                    <i class="fas fa-square"></i>물건정보</h4>
+                  <p class="card-catagory"></p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tbody>
+                        <tr style="line-height:32px;">
+						  <td>버전</td>
+						  <td>
+                            <input type="number" name="version" class="form-control" disabled>
+                          </td>
+                          <td></td>
+                          <td>
+                            <button type="button" class="btn btn-info" onclick="versionUp()" style="width:45%">버전업</button>
+                            <button type="button" class="btn btn-info" onclick="delete_btn_clicked()" style="width:45%">삭제</button>
+                          </td>
+
+						  <td></td>
+						  <td>
+                          </td>
+						  <td>표시여부</td>
+						  <td>
+                              <input class="form-check-input" type="checkbox" id="view_yn">
+                          </td>
+                        </tr>
+
+                        <tr>
+						  <td>매물특징</td>
+						  <td colspan="8">
+                            <input type="text" name="mamul_character" class="form-control" value="">
+                            </select>
+                          </td>
+                        </tr>
+
+                        <tr>
+  						  <td>매물방식</td>
+                          <td>
+                            <select id="category_nm" name="job2" class="form-control form-control-sm"></select>
+                          </td>
+                          <td>매물방식</td>
+                          <td>
+                            <select id="category_cd" name="job2" class="form-control form-control-sm" disabled></select>
+                          </td>
+                          <td>구역</td>
+                          <td>
+                            <input type="text" name="district" id="id_district" class="form-control" value="" readonly required>
+                          </td>
+                          <td>빌딩명</td>
+                          <td>
+                            <input type="text" name="building_nm" id="id_building_nm" class="form-control" maxlength="10" value="" readonly required>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>층</td>
+                          <td>
+                            <input type="text" name="floar" class="form-control" value="">
+                          </td>
+                          <td>호수</td>
+                          <td>
+                            <input type="text" name="hosu" id="id_hosu" class="form-control" maxlength="10" value="" readonly required>
+                          </td>
+                          <td>상호</td>
+                          <td>
+                            <input type="text" name="brand_nm" id="post11" size="5" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>입주일자</td>
+                          <td>
+                            <input type="text" name="move_in_dt" class="form-control" value="">
+                          </td>
+                          <td>입주가능일자</td>
+                          <td>
+                            <input type="text" name="move_possible_dt" class="form-control" value="">
+                          </td>
+						  <td>향</td>
+                          <td>
+                            <input type="text" name="facing" id="post141" size="5" class="form-control">
+                          </td>
+						  <td>주차</td>
+                          <td>
+                            <input type="text" name="park" class="form-control" value="">
+                          </td>
+						</tr>
+                        <tr>
+                          <td>등기변동일</td>
+                          <td>
+                            <input type="text" name="reg_change_dt"  size="5" class="form-control">
+                          </td>
+                        </tr>
+                      <tr>
+                          <td>분양(평)</td>
+                          <td>
+                            <input type="number" name="bun_py_size" class="form-control" value="" disabled>
+                          </td>
+                          <td>전용(평)</td>
+                          <td>
+                            <input type="number" name="real_py_size" class="form-control" value="" >
+                          </td>
+                          <td>분양(평) 계산</td>
+                          <td>
+                            <button type="button" class="btn btn-info" onclick="calBunyang()" style="width:45%">자동</button>
+                            <button type="button" class="btn btn-info" onclick="calReset()" style="width:45%">수동</button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>분양(m<sup>2</sup>)</td>
+                          <td>
+                            <input type="number" name="bun_m2_size" class="form-control" value="" disabled>
+                          </td>
+
+                          <td>전용(m<sup>2</sup>)</td>
+                          <td>
+                            <input type="number" name="real_m2_size" class="form-control" value="">
+                          </td>
+
+                        </tr>
+                        <tr>
+                          <td>공용1(m<sup>2</sup>)</td>
+                          <td>
+                            <input type="number" name="public1" class="form-control" value="">
+                          </td>
+                          <td>공용2(m<sup>2</sup>)</td>
+                          <td>
+                            <input type="number" name="public2" class="form-control" value="">
+                          </td>
+                          <td>공용3(m<sup>2</sup>)</td>
+                          <td>
+                            <input type="number" name="public3" class="form-control" value="">
+                          </td>
+                          <td>공용4(m<sup>2</sup>)</td>
+                          <td>
+                            <input type="number" name="public4" class="form-control" value="">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>공용5(m<sup>2</sup>)</td>
+                          <td>
+                            <input type="number" name="public5" class="form-control" value="">
+                          </td>
+                          <td>공용6(m<sup>2</sup>)</td>
+                          <td>
+                            <input type="number" name="public6" class="form-control" value="">
+                          </td>
+                          <td>공용7(m<sup>2</sup>)</td>
+                          <td>
+                            <input type="number" name="public7" class="form-control" value="">
+                          </td>
+                          <td>공용합(m<sup>2</sup>)</td>
+                          <td>
+                            <input type="number" name="public_sum" class="form-control" value="" disabled>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>현업종</td>
+                          <td>
+                            <input type="text" name="sector1" id="post13" size="5" class="form-control">
+                          </td>
+                          <td>추천업종1</td>
+                          <td>
+                            <input type="text" name="recomend1" class="form-control" value="">
+                          </td>
+                          <td>추천업종2</td>
+                          <td>
+                            <input type="text" name="recomend2" class="form-control" value="">
+                          </td>
+                          <td>추천업종3</td>
+                          <td>
+                            <input type="text" name="recomend3" class="form-control" value="">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>보증금</td>
+                          <td>
+                            <input type="text"  pattern="[0-9]+" name="deposit" class="form-control" value="">
+                          </td>
+                          <td>임대료</td>
+                          <td>
+                            <input type="text"  pattern="[0-9]+" name="monthly" size="5" class="form-control">
+                          </td>
+                          <td>권리금</td>
+                          <td>
+                            <input type="text"  pattern="[0-9]+" name="right_money" class="form-control" value="">
+                          </td>
+						  <td>평당관리비</td>
+                          <td>
+                            <input type="text"  pattern="[0-9]+" name="maintance_py_cost" class="form-control" value="">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>관리비</td>
+                          <td>
+                            <input type="text"  pattern="[0-9]+" name="maintance_cost" id="maintance_cost" size="5" class="form-control">
+                          </td>
+						  <td>총비용</td>
+                          <td>
+                            <input type="text"  pattern="[0-9]+" name="total_cost" size="5" class="form-control" disabled>
+                          </td>
+						  <td>임대 평단가</td>
+                          <td>
+                            <input type="text"  pattern="[0-9]+" name="monthly_py" size="5" class="form-control" disabled>
+                          </td>
+                          <td>전세 평단가</td>
+                          <td>
+                            <input type="text"  pattern="[0-9]+" name="junse_py_rate" size="5" class="form-control" disabled>
+                          </td>
+                        </tr>
+                        <tr>
+
+						  <td>매매가</td>
+                          <td>
+                            <input type="text"  pattern="[0-9]+" name="sale_price" class="form-control" value="">
+                          </td>
+                          <td>매매평단가</td>
+                          <td>
+                            <input type="text"  pattern="[0-9]+" name="sale_py_rating" class="form-control" value="" disabled>
+                          </td>
+						  <td>수익율</td>
+                          <td>
+                            <input type="text"  pattern="[0-9]+" name="profit_rate" class="form-control" value="" disabled>
+                          </td>
+						  <td>매매일자</td>
+                          <td>
+                            <input type="text" name="sale_dt" class="form-control" value="">
+                          </td>
+						</tr>
+                        <tr>
+						  <td>임대인1</td>
+                          <td>
+                            <input type="text" name="lessor1" class="form-control" value="">
+                          </td>
+                          <td>임대인1연락처</td>
+                          <td>
+                            <input type="tel" name="lessor1_phone" class="form-control" maxlength="13" value="">
+                          </td>
+						  <td>임대인1주소</td>
+                          <td>
+                            <input type="text" name="lessor_add"  size="5" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>임대인2</td>
+                          <td>
+                            <input type="text" name="lessor2" class="form-control" value="">
+                          </td>
+                          <td>임대인2연락처</td>
+                          <td>
+                            <input type="tel" name="lessor2_phone" class="form-control" maxlength="13" value="">
+                          </td>
+						  <td>임대인2주소</td>
+                          <td>
+                            <input type="text" name="lessor_add2"  size="5" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>사유</td>
+                          <td colspan="8" style="height:100px">
+                            <textarea name="lessor_etc" size="5" class="form-control" style="height:100%;">
+                            </textarea>
+                          </td>
+                        </tr>
+                        <tr style="line-height:32px;">
+                          <td>임차인1</td>
+                          <td>
+                            <input type="text" name="lessee1" class="form-control" value="">
+                          </td>
+
+                          <td>임차인1연락처</td>
+                          <td>
+                            <input type="tel" name="lessee1_phone" class="form-control" maxlength="13" value="">
+                          </td>
+
+                          <td>임차인주소1</td>
+                          <td>
+                            <input type="text" name="lessee_add" class="form-control" value="">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>임차인2</td>
+                          <td>
+                            <input type="text" name="lessee2" class="form-control" value="">
+                          </td>
+                          <td>임차인2연락처</td>
+                          <td>
+                            <input type="tel" name="lessee2_phone" class="form-control" maxlength="13" value="">
+                          </td>
+                          <td>임차인주소2</td>
+                          <td>
+                            <input type="text" name="lessee_add2" class="form-control" value="">
+                          </td>
+
+                        </tr>
+						<!--
+                        <tr>
+                          <td>대분류</td>
+                          <td>
+                            <input type="text" name="h1" id="post12" size="5" class="form-control">
+                          </td>
+                          <td>중분류</td>
+                          <td>
+                            <input type="text" name="h2" class="form-control" value="">
+                          </td>
+                          <td>업종2</td>
+                          <td>
+                            <input type="text" name="sector2" class="form-control" value="">
+                          </td>
+                        </tr>
+						-->
+                        <tr>
+                          <td>비고</td>
+                          <td colspan="8" style="height:300px">
+                            <textarea name="lessee_etc" size="5" class="form-control" style="height:100%;">
+                            </textarea>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="pt-3">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+      <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+      <div class="tab-pane fade" id="tabmenu_04">
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" enctype="multipart/form-data" id="uploadForm">
+        <div class="modal-body">
+          <div class="file-loading">
+
+              <input id="input-b9" name="file" multiple type="file" accept="image/*">
+
+          </div>
+          <div id="kartik-file-errors"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="btnUpload" class="btn btn-primary" title="Your custom upload logic">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+$('#btnUpload').on('click', function(event) {
+    event.preventDefault();
+
+    var form = $('#uploadForm')[0]
+
+    var data = new FormData(form);
+    data.append('district',$("input[name='district']").val());
+    data.append('building_nm',$("input[name='building_nm']").val());
+    data.append('hosu',$("input[name='hosu']").val());
+    data.append('version',$("input[name='version']").val());
+    data.append('category',$("input[name='category']").val());
+
+
+
+    $('#btnUpload').prop('disabled', true);
+
+    $.ajax({
+        type: "POST",
+        url: "/insert_image",
+        enctype: 'multipart/form-data',
+        data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+        	$('#btnUpload').prop('disabled', false);
+        	alert('success')
+        },
+        complete: function () {
+            location.reload();
+        },
+
+        error : function( jqXHR, textStatus, errorThrown ) {
+        $('#btnUpload').prop('disabled', false);
+          console.log(data);
+
+          alert( textStatus );
+
+          alert( errorThrown );
+
+        }
+
+    });
+
+})
+/*
+$(document).ready(function() {
+    $("#input-b9").fileinput({
+        showPreview: false,
+        showUpload: false,
+        elErrorContainer: '#kartik-file-errors',
+        allowedFileExtensions: ["jpg", "png", "gif"]
+        //uploadUrl: '/site/file-upload-single'
+    });
+});
+*/
+</script>
+
+
+
+
+
+        <div id="jsGrid"></div>
+        <div class="container" style="width:100%; height:100%">
+          <div style="width:100%; height:100%;">
+            <ul class="pgwSlideshow" id="images" style="width:100%; height:100%">
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <button type="button" class="btn btn-success" onclick="save_btn_clicked()">수정</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">사진 추가</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+<script>
+  var searchParam = new Object();
+
+  function save_btn_clicked() {
+      profitCalc()
+      searchParam = Object.assign(searchParam, self.setSendParam());
+      self.service_store_insertDate(searchParam);
+  }
+
+  function versionUp() {
+    $("input[name='version']").val(Number($("input[name='version']").val()) + 1);
+  }
+
+
+  function delete_btn_clicked() {
+    searchParam = Object.assign(searchParam, self.setSendParam());
+    self.service_delete_data(searchParam)
+  }
+
+
+  function service_delete_data(filter) {
+      var date = new Date();
+      filter.today = getFormatDate(date);
+      return $.ajax({
+          type: "DELETE"
+          , url: "/mamul_detail/delete"
+          , data: filter
+          , dataType: "json"
+          , success: function (data) {
+              alert("삭제되었습니다.");
+              opener.parent.test();
+              self.close();   //자기자신창을 닫습니다.
+          }
+          , error: function (request,status,error) {
+              //status 200은 정상이기 때문에 예외처리함.
+              alert(error);
+              if(request.status != '200')
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          }
+          , complete: function () {  console.log('complete'); }
+      });
+  }
+
+  function calBunyang() {
+      var public1 = Number($("input[name='public1']").val());
+      var public2 = Number($("input[name='public2']").val());
+      var public3 = Number($("input[name='public3']").val());
+      var public4 = Number($("input[name='public4']").val());
+      var public5 = Number($("input[name='public5']").val());
+      var public6 = Number($("input[name='public6']").val());
+      var public7 = Number($("input[name='public7']").val());
+      var real_py_size = Number($("input[name='real_py_size']").val());
+      var bun_py_size  = Number($("input[name='bun_py_size']").val());
+      var bun_m2_size  = Number($("input[name='bun_m2_size']").val());
+      var real_m2_size = Number($("input[name='real_m2_size']").val());
+
+
+
+      if(typeof real_py_size == "undefined")
+        real_py_size = 0;
+      if(typeof bun_py_size == "undefined")
+        bun_py_size = 0;
+      if(typeof public1 == "undefined")
+        public1 = 0;
+      if(typeof public2 == "undefined")
+        public2 = 0;
+      if(typeof public3 == "undefined")
+        public3 = 0;
+      if(typeof public4 == "undefined")
+        public4 = 0;
+      if(typeof public5 == "undefined")
+        public5 = 0;
+      if(typeof public6 == "undefined")
+        public6 = 0;
+      if(typeof public7 == "undefined")
+        public7 = 0;
+      if(typeof bun_m2_size == "undefined")
+        bun_m2_size = 0;
+
+      var public_sum = Number((public1+public2+public3+public4+public5+public6+public7).toFixed(2));
+      var bun_py_size_cal = ((real_m2_size+public_sum)/3.3).toFixed(2);
+      var bun_m2_size_cal = ((real_m2_size+public_sum)).toFixed(2);
+      var real_py_size_cal = ((real_m2_size)/3.3).toFixed(2);
+      $("input[name='public_sum']").val(public_sum);
+      $("input[name='bun_py_size']").val(bun_py_size_cal);
+      $("input[name='bun_m2_size']").val(bun_m2_size_cal);
+      $("input[name='real_py_size']").val(real_py_size_cal);
+
+
+
+  }
+
+  function profitCalc() {
+    var total_cost = Number($("input[name='total_cost']").val()); // 총비용
+    var monthly = Number($("input[name='monthly']").val()); // 임대료
+    var maintance_cost = Number($("input[name='maintance_cost']").val()); // 관리비
+    var bun_py_size =  Number($("input[name='bun_py_size']").val()); // 분양평
+    var sale_price =  Number($("input[name='sale_price']").val()); // 매매가
+    var deposit =  Number(setOnlyNumber($("input[name='deposit']").val())); // 보증금
+    var profit_rate =  Number($("input[name='profit_rate']").val()); // 수익율
+    var monthly_py =  Number($("input[name='monthly_py']").val()); // 임대평단가
+    var junse_py_rate = Number($("input[name='junse_py_rate']").val()); // 전세평단가
+
+
+    if(typeof total_cost == "undefined")
+      total_cost = 0;
+    if(typeof monthly == "undefined")
+      monthly = 0;
+    if(typeof maintance_cost == "undefined")
+      maintance_cost = 0;
+    if(typeof bun_py_size == "undefined")
+      bun_py_size = 0;
+    if(typeof sale_price == "undefined")
+      sale_price = 0;
+    if(typeof deposit == "undefined")
+      deposit = 0;
+    if(typeof profit_rate == "undefined")
+      profit_rate = 0;
+    if(typeof monthly_py == "undefined")
+      monthly_py = 0;
+    if(typeof junse_py_rate == "undefined" || junse_py_rate == NaN )
+      junse_py_rate = 0;
+
+
+    // 총비용 계산
+    var total_cost = monthly + maintance_cost;
+    // 매매 평단가 계산
+    var sale_py_rating = sale_price / bun_py_size;
+    // 수익율
+    var profit_rate = (monthly * 12)/sale_price - deposit;
+    // 임대평단가
+    var monthly_py = ((deposit*0.05)/12 + monthly) / bun_py_size;
+    // 전세평단가
+    var junse_py_rate =  deposit / bun_py_size;
+
+
+    // 총 비용
+    $("input[name='total_cost']").val(total_cost.toFixed(2));
+    // 매매 평단가
+    $("input[name='sale_py_rating']").val(sale_py_rating.toFixed(2));
+    // 수익율
+    $("input[name='profit_rate']").val(profit_rate.toFixed(2));
+    // 임대평단가
+    $("input[name='monthly_py']").val(monthly_py.toFixed(2));
+    // 전세평단가
+    $("input[name='junse_py_rate']").val(junse_py_rate.toFixed(2));
+
+  }
+
+
+  function calReset() {
+      $("input[name='bun_py_size']").prop('disabled', false);
+      $("input[name='public_sum']").prop('disabled', false);
+
+       $("input[name='bun_py_size']").val('');
+       $("input[name='real_py_size']").val('');
+       $("input[name='real_m2_size']").val('');
+       $("input[name='bun_m2_size']").val('');
+       $("input[name='address']").val('');
+       $("input[name='public1']").val('');
+       $("input[name='public2']").val('');
+       $("input[name='public3']").val('');
+       $("input[name='public4']").val('');
+       $("input[name='public5']").val('');
+       $("input[name='public6']").val('');
+       $("input[name='public7']").val('');
+       $("input[name='public_sum']").val('');
+  }
+
+
+  function setThousandSepa(_number) {
+      if(_number > 0 )
+          return _number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      else
+          return 0
+  }
+
+  function setOnlyNumber(_number) {
+      if('' || null || undefined || 0 || NaN)
+          return 0;
+      else
+          return (_number + '').replace(/[^\.|^0(0)+|^0-9\.]/g, '');
+  }
+
+
+  function setSendParam() {
+          var param = new Object();
+          // 키
+          param['district']	  	=$("input[name='district']").val();
+          param['building_nm']    =$("input[name='building_nm']").val();
+          param['hosu']    		=$("input[name='hosu']").val();
+          param['version']         =$("input[name='version']").val();
+
+          param['category']       =$("#category_nm option:selected").val();
+          param['category_nm']    =$("input[name='category_nm']").val();
+          param['address']        =$("input[name='address']").val();
+
+
+          param['facing']         =$("input[name='facing']").val();
+          param['lessor1']        =$("input[name='lessor1']").val();
+          param['lessor2']        =$("input[name='lessor2']").val();
+          param['lessor1_phone']  =$("input[name='lessor1_phone']").val();
+          param['lessor2_phone']  =$("input[name='lessor2_phone']").val();
+
+          param['lessor_add']     =$("input[name='lessor_add']").val();
+          param['lessor_add2']    =$("input[name='lessor_add2']").val();
+  		  param['lessor_etc']     =$("textarea[name='lessor_etc']").val();
+
+          param['lessee1']       =$("input[name='lessee1']").val();
+          param['lessee2']       =$("input[name='lessee2']").val();
+          param['lessee1_phone'] =$("input[name='lessee1_phone']").val();
+          param['lessee2_phone'] =$("input[name='lessee2_phone']").val();
+          param['lessee_add']    =$("input[name='lessee_add']").val();
+          param['lessee_add2']   =$("input[name='lessee_add2']").val();
+
+          param['h1']            =$("input[name='h1']").val();
+          param['h2']            =$("input[name='h2']").val();
+          param['brand_nm']      =$("input[name='brand_nm']").val();
+          param['sector1']       =$("input[name='sector1']").val();
+          param['sector2']       =$("input[name='sector2']").val();
+          param['lessee_etc']    =$("textarea[name='lessee_etc']").val();
+  		  param['recomend1']    =$("input[name='recomend1']").val();
+  		  param['recomend2']    =$("input[name='recomend2']").val();
+  		  param['recomend3']    =$("input[name='recomend3']").val();
+  		  param['park']    =$("input[name='park']").val();
+
+           param['mamul_character']         =$("input[name='mamul_character']").val();
+
+
+           //날짜
+           param['sale_dt']           =$("input[name='sale_dt']").val();
+           param['reg_change_dt']     =$("input[name='reg_change_dt']").val();
+          param['move_in_dt']    =$("input[name='move_in_dt']").val();
+          param['move_possible_dt']  =$("input[name='move_possible_dt']").val();
+
+          // 숫자, 금액
+          param['floar']           =setOnlyNumber($("input[name='floar']").val());
+          param['sale_price']      =setOnlyNumber($("input[name='sale_price']").val());
+          param['sale_py_rating']  =setOnlyNumber($("input[name='sale_py_rating']").val());
+          param['right_money']     =setOnlyNumber($("input[name='right_money']").val());
+          param['real_m2_size']    =setOnlyNumber($("input[name='real_m2_size']").val());
+
+          param['total_cost']        =setOnlyNumber($("input[name='total_cost']").val());
+          param['monthly_py']        =setOnlyNumber($("input[name='monthly_py']").val());
+          param['junse_py_rate']        =setOnlyNumber($("input[name='junse_py_rate']").val());
+          param['profit_rate']       =setOnlyNumber($("input[name='profit_rate']").val());
+          param['maintance_cost'] =setOnlyNumber($("input[name='maintance_cost']").val());
+          param['rent_py_rating'] =setOnlyNumber($("input[name='rent_py_rating']").val());
+          param['real_py_size']   =setOnlyNumber($("input[name='real_py_size']").val());
+          param['bun_py_size']    =setOnlyNumber($("input[name='bun_py_size']").val());
+          param['real_py_raing']  =setOnlyNumber($("input[name='real_py_raing']").val());
+          param['real_m2_size']   =setOnlyNumber($("input[name='real_m2_size']").val());
+          param['bun_m2_size']    =setOnlyNumber($("input[name='bun_m2_size']").val());
+		  param['maintance_py_cost'] =setOnlyNumber($("input[name='maintance_py_cost']").val());
+          param['deposit']        =setOnlyNumber($("input[name='deposit']").val());
+          param['monthly']        =setOnlyNumber($("input[name='monthly']").val());
+          param['right_money']    =setOnlyNumber($("input[name='right_money']").val());
+          param['public1']        =setOnlyNumber($("input[name='public1']").val());
+          param['public2']        =setOnlyNumber($("input[name='public2']").val());
+          param['public3']        =setOnlyNumber($("input[name='public3']").val());
+          param['public4']        =setOnlyNumber($("input[name='public4']").val());
+          param['public5']        =setOnlyNumber($("input[name='public5']").val());
+          param['public6']        =setOnlyNumber($("input[name='public6']").val());
+          param['public7']        =setOnlyNumber($("input[name='public7']").val());
+          param['public_sum']     =setOnlyNumber($("input[name='public_sum']").val());
+          param['view_yn']        =$(view_yn).prop("checked");
+          return param;
+      }
+
+
+  function loadDatas(data) {
+           $("input[name='district']").val(data.district);
+           $("input[name='building_nm']").val(data.building_nm);
+           $("input[name='hosu']").val(data.hosu);
+           $("input[name='version']").val(data.version);
+
+           $("#category_nm").val(data.category).prop("selected", true); //값이 1인 option 선택
+           $("#category_cd").val(data.category_nm).prop("selected", true); //값이 1인 option 선택
+
+
+           $("input[name='maintance_cost']").val(setThousandSepa(data.maintance_cost));
+           $("input[name='rent_py_rating']").val(data.rent_py_rating);
+           $("input[name='real_py_size']").val(data.real_py_size);
+           $("input[name='bun_py_size']").val(data.bun_py_size);
+           $("input[name='real_py_raing']").val(data.real_py_raing);
+           $("input[name='real_m2_size']").val(data.real_m2_size);
+           $("input[name='bun_m2_size']").val(data.bun_m2_size);
+           $("input[name='address']").val(data.address);
+           $("input[name='public1']").val(data.public1);
+           $("input[name='public2']").val(data.public2);
+           $("input[name='public3']").val(data.public3);
+           $("input[name='public4']").val(data.public4);
+           $("input[name='public5']").val(data.public5);
+           $("input[name='public6']").val(data.public6);
+           $("input[name='public7']").val(data.public7);
+           $("input[name='public_sum']").val(data.public_sum);
+
+           $("input[name='floar']").val(data.floar);
+           $("input[name='facing']").val(data.facing);
+           $("input[name='lessor1']").val(data.lessor1);
+           $("input[name='lessor2']").val(data.lessor2);
+           $("input[name='lessor1_phone']").val(data.lessor1_phone);
+           $("input[name='lessor2_phone']").val(data.lessor2_phone);
+           $("input[name='sale_price']").val(setThousandSepa(data.sale_price));
+           $("input[name='sale_py_rating']").val(data.sale_py_rating);
+           $("input[name='lessor_add']").val(data.lessor_add);
+           $("input[name='lessor_add2']").val(data.lessor_add2);
+  		 $("textarea[name='lessor_etc']").val(data.lessor_etc);
+
+
+          $("input[name='lessee1']").val(data.lessee1);
+          $("input[name='lessee2']").val(data.lessee2);
+          $("input[name='lessee1_phone']").val(data.lessee1_phone);
+          $("input[name='lessee2_phone']").val(data.lessee2_phone);
+          $("input[name='lessee_add']").val(data.lessee_add);
+          $("input[name='lessee_add2']").val(data.lessee_add2);
+          $("input[name='move_in_dt']").val(data.move_in_dt);
+          $("input[name='h1']").val(data.h1);
+          $("input[name='h2']").val(data.h2);
+           $("input[name='brand_nm']").val(data.brand_nm);
+           $("input[name='sector1']").val(data.sector1);
+           $("input[name='sector2']").val(data.sector2);
+  		 $("input[name='recomend1']").val(data.recomend1);
+           $("input[name='recomend2']").val(data.recomend2);
+  		 $("input[name='recomend3']").val(data.recomend3);
+  		 $("input[name='park']").val(data.park);
+           $("input[name='deposit']").val(setThousandSepa(data.deposit));
+           $("input[name='monthly']").val(setThousandSepa(data.monthly));
+           $("input[name='right_money']").val(setThousandSepa(data.right_money));
+           $("textarea[name='lessee_etc']").val(data.lessee_etc);
+
+		   $("input[name='right_money']").val(setThousandSepa(data.right_money));
+		   $("input[name='maintance_py_cost']").val(setThousandSepa(data.maintance_py_cost));
+           $("input[name='mamul_character']").val(data.mamul_character);
+
+           $("input[name='sale_dt']").val(data.sale_dt);
+           $("input[name='move_possible_dt']").val(data.move_possible_dt);
+           $("input[name='total_cost']").val(setThousandSepa(data.total_cost));
+           $("input[name='monthly_py']").val(setThousandSepa(data.monthly_py));
+           $("input[name='junse_py_rate']").val(setThousandSepa(data.junse_py_rate));
+           $("input[name='profit_rate']").val(data.profit_rate);
+           $("input[name='reg_change_dt']").val(data.reg_change_dt);
+
+           if(data.view_yn == 'true')
+              document.getElementById('view_yn').checked = true;
+           console.log("##############################################");
+           console.log(data.view_yn);
+           console.log($("input[name='view_yn']").val());
+           console.log($("input[name='view_yn']").val());
+           console.log($("input[name='view_yn']").val());
+
+
+           profitCalc()
+
+      }
+
+  function service_lessee_updateDate(filter) {
+      console.log("데이터를 가지고 오고 시자합니다.");
+      return $.ajax({
+          type: "PUT"
+          , url: "/lessee_detail"
+          , data: filter
+          , dataType: "json"
+          , success: function (data) {
+              alert("저장되었습니다.");
+              opener.parent.test();
+              self.close();   //자기자신창을 닫습니다.
+              //부모창 함수를 호출한다.
+
+          }
+          , error: function (request,status,error) {
+              //status 200은 정상이기 때문에 예외처리함.
+              alert(error);
+              if(request.status != '200')
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          }
+          , complete: function () {  console.log('complete'); }
+      });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  function service_lessor_updateDate(filter) {
+      //console.log(filter);
+      return $.ajax({
+          type: "PUT"
+          , url: "/lessor_detail"
+          , data: filter
+          , dataType: "json"
+          , success: function (data) {
+              service_lessee_updateDate(filter);
+          }
+          , error: function (request,status,error) {
+              //status 200은 정상이기 때문에 예외처리함.
+              alert(error);
+              if(request.status != '200')
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          }
+          , complete: function () {  console.log('complete'); }
+      });
+  }
+
+
+  function service_store_insertDate(filter) {
+      var date = new Date();
+      filter.today = getFormatDate(date);
+      console.log(filter)
+      return $.ajax({
+          type: "PUT"
+          , url: "/mamul_detail/insert"
+          , data: filter
+          , dataType: "json"
+          , success: function (data) {
+              service_store_updateDate(filter);
+          }
+          , error: function (request,status,error) {
+              //status 200은 정상이기 때문에 예외처리함.
+              alert(error);
+              if(request.status != '200')
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          }
+          , complete: function () {  console.log('complete'); }
+      });
+  }
+
+  function service_store_updateDate(filter) {
+      var date = new Date();
+      filter.today = getFormatDate(date);
+      console.log(filter)
+      return $.ajax({
+          type: "PUT"
+          , url: "/mamul_detail"
+          , data: filter
+          , dataType: "json"
+          , success: function (data) {
+              service_lessor_updateDate(filter);
+          }
+          , error: function (request,status,error) {
+              //status 200은 정상이기 때문에 예외처리함.
+              alert(error);
+              if(request.status != '200')
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          }
+          , complete: function () {  console.log('complete'); }
+      });
+  }
+  function getFormatDate(date){
+      var year = date.getFullYear();              //yyyy
+      var month = (1 + date.getMonth());          //M
+      month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+      var day = date.getDate();                   //d
+      day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+      return  year + '' + month + '' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+  }
+  function service_store_getData(filter) {
+      console.log("데이터를 가지고 오고 시자합니다.");
+      return $.ajax({
+          type: "GET"
+          , url: "/mamul_detail"
+          , data: filter
+          , dataType: "json"
+          , success: function (data) {
+              console.log('success');
+  			if(typeof data.length == "undefined" || data.length == null || data.length == "") {
+  				document.getElementById('id_district').readOnly  = false;
+  				document.getElementById('id_building_nm').readOnly  = false;
+  				document.getElementById('id_hosu').readOnly  = false;
+  			}
+  			else
+  				loadDatas(data[0]);
+          }
+          , error: function (request,status,error) {
+              //status 200은 정상이기 때문에 예외처리함.
+              alert(error);
+              if(request.status != '200')
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          }
+          , complete: function () {  console.log('complete'); }
+      });
+  }
+  function getParam(param) {
+      return new URLSearchParams(window.location.search).get(param);
+  }
+
+  function service_store_getImage(filter) {
+      console.log("데이터를 가지고 오고 시자합니다.");
+      return $.ajax({
+          type: "GET"
+          , url: "/store_image"
+          , data: filter
+          , dataType: "json"
+          , success: function (data) {
+
+              //기본 하위태그를 삭제한 다음에 새로 넣음.
+              for(var i = 0; i < data.length; i++) {
+                  var Ul = document.getElementById("images");
+                  var newLi = document.createElement("li");
+                  var newSpan = document.createElement("span");
+                  var newImg = document.createElement('img');
+                  newImg.src=data[i].path;
+                  newImg.setAttribute('data-large-src', data[i].path);
+                  newImg.setAttribute('alt', data[i].file_nm);
+                  newLi.appendChild(newImg);
+                  Ul.appendChild(newLi);
+              }
+
+              var slideshow = $(".pgwSlideshow").pgwSlideshow({
+                mainClassName: 'pgwSlideshow',
+                transitionEffect: 'fading',
+                autoSlide: false,
+                maxHeight: null,
+                listPosition : 'center',
+                displayControls : false,
+                afterSlide: function(){
+                  var counter = slideshow.getCurrentSlide();
+                  if (counter === 1){
+                   console.log("this is number one!");
+
+                   var x = document.getElementsByClassName("ps-current");
+                   x.setAttribute('style', 'height: 382.5px;');
+                   // add google map code for number one here
+                  }
+                  else
+                  {
+                   console.log("something else");
+                  }
+                }
+              });
+          }
+          , error: function (request,status,error) {
+              //status 200은 정상이기 때문에 예외처리함.
+              alert(error);
+              if(request.status != '200')
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          }
+          , complete: function () {  console.log('complete'); }
+      });
+  }
+
+
+
+
+  function service_common_getData(filter) {
+      console.log("데이터를 가지고 오고 시자합니다.");
+      return $.ajax({
+          type: "GET"
+          , url: "/common/detailCode"
+          , data: filter
+          , dataType: "json"
+          , success: function (data) {
+
+              var TTYPE = data;
+              for(var count = 0; count < TTYPE.length; count++){
+                  //매물방식
+                  if(TTYPE[count]['group_cd'] == 'M02') {
+                      var option = $("<option value=" + TTYPE[count]['code_nm'] + ">" + TTYPE[count]['code_cd'] + "</option>");
+                      var option2 = $("<option value=" + TTYPE[count]['code_cd'] + ">" + TTYPE[count]['code_nm'] + "</option>");
+
+                      $('#category_cd').append(option);
+                      $('#category_nm').append(option2);
+
+                  }
+               }
+               loading();
+
+
+          }
+          , error: function (request,status,error) {
+              //status 200은 정상이기 때문에 예외처리함.
+              alert(error);
+              if(request.status != '200')
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          }
+          , complete: function () {  console.log('complete');
+
+
+           }
+      });
+  }
+
+
+  function loading() {
+      var param = new Object();
+      param.building_nm = getParam("arg1");
+      param.distict = getParam("arg2");
+      param.distict = getParam("arg2");
+      param.hosu = getParam("arg3");
+      param.version = getParam("arg4");
+      service_store_getData(param);
+      service_store_getImage(param);
+      $("#jsGrid").jsGrid("loadData",param);
+  }
+
+  window.onload = function(){
+      console.log(getParam("arg1"));
+      console.log(getParam("arg2"));
+      var param = new Object();
+      service_common_getData(param);
+
+
+      $("#category_nm").change( function() {
+          //TODO
+          searchParam['category'] = $("#category_nm option:selected").val();
+      });
+
+  }
+
+
+	$(function () {
+		$("#jsGrid").jsGrid({
+			width: "50%",
+			height: "200",
+			inserting: false, // 데이터 기입
+			sorting: true,
+			paging: false,
+			autoload: false,
+
+			rowClick: function(args) {
+				if(args.event.target.className == "my-row-custom-class jsgrid-cell jsgrid-align-center") {
+					albumCalculateInfo.btn_popup_clicked(args)
+				}
+				// 클릭 클릭시
+				/*
+				if(args.item.item_desc)
+
+					*/
+			},
+
+			controller: {
+				loadData: function(filter) {
+						for(let i in filter) {
+							if(filter[i] == '')
+								delete filter[i];
+						}
+						return $.ajax({
+							type: "GET"
+							, url: "/store_image"
+                            , data: filter
+                            , dataType: "json"
+							, success: function () {  console.log('success'); }
+							, error: function (request,status,error) {
+								//status 200은 정상이기 때문에 예외처리함.
+								alert(error);
+								if(request.status != '200')
+									alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+							}
+							, complete: function (data) {
+								var row_num = data.responseJSON.length;
+								if(!data.responseJSON.length)
+									row_num = "0";
+								document.getElementById("output1").value = row_num;
+							}
+						});
+
+				},
+				updateItem: function(item) {
+					var d = $.Deferred();
+					$.ajax({
+						url: "/api/database",
+						data: JSON.stringify(item),
+						type: "PUT",
+						dataType: "json",
+						contentType: "application/json",
+					}).done(function(response) {
+						d.resolve(response);
+					});
+					return d.promise();
+				},
+				deleteItem: function(item) {
+					var d = $.Deferred();
+					var param = new Object();
+					  param.building_nm = getParam("arg1");
+                      param.distict = getParam("arg2");
+                      param.distict = getParam("arg2");
+                      param.hosu = getParam("arg3");
+					$.ajax({
+						url: "/delete_image",
+						data: item,
+						type: "DELETE",
+					}).done(function(response) {
+					    d.resolve(response);
+					    var param = new Object();
+                        location.reload();
+
+					});
+					return d.promise();
+				},
+				insertItem: function(item) {
+					var d = $.Deferred();
+					$.ajax({
+						url: "/api/database",
+						data: JSON.stringify(item),
+						dataType: "json",
+						contentType: "application/json",
+						type: "POST",
+					}).done(function(response) {
+						d.resolve(response);
+					});
+					return d.promise();
+				},
+
+
+			},
+
+			fields: [
+				{ name: "file_nm",      type: "text",     width: 100, validate: "required" ,title:"파일명"},
+				{
+					type: "control",
+					modeSwitchButton: false,
+					editButton: false,
+					deleteButton:true
+				}
+
+
+			]
+		});
+	});
+
+
+
+</script>
