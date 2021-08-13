@@ -1,10 +1,9 @@
-#-*- coding: EUC-KR -*-
+# -*- coding: utf-8 -*-
 import pymysql.cursors
 import os,sys
 from common.logger import LOGGER
 import json
 from common import utils
-import pymssql
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -23,7 +22,7 @@ class DBO(LOGGER) :
             self.util = utils.Utills()
             with open(resource_path('./conf/conf.json')) as json_file:
                 db_info = json.load(json_file)["db_info"]
-            super().__init__()  # ºÎ¸ðÅ¬·¡½ºÀÇ __init__ ¸Þ¼Òµå È£Ãâ
+            super().__init__()  # ï¿½Î¸ï¿½Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ __init__ ï¿½Þ¼Òµï¿½ È£ï¿½ï¿½
             _host = db_info["host"]
             _port = db_info["port"]
             _db_user_id = db_info['user']
@@ -33,7 +32,7 @@ class DBO(LOGGER) :
             _auto_commit = db_info['autocommit']
             _lacal_infile = 1
 
-            self.__connection = pymssql.connect(server=_host
+            self.__connection = pymysql.connect(server=_host
                                                 , user=_db_user_id
                                                 , password=_db_user_pass
                                                 , database=_db
@@ -44,7 +43,7 @@ class DBO(LOGGER) :
             self.util.print_error_log(str(e))
 
     def log_update(self,_desc):
-        # µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®
+        # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         try:
             self.cursor = self.__connection.cursor()
             self.cursor.execute( 'INSERT INTO t_logs (desc) values (%s)',_desc)
@@ -53,22 +52,22 @@ class DBO(LOGGER) :
         except Exception as e:
             self.util.print_error_log(str(e))
 
-    # µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®
+    # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     def update(self,_query,_param=[]):
         try:
             self.cursor = self.__connection.cursor()
             # self.util.print_query(_query, _param)
             self.cursor.execute(_query, _param)
-            # DB ¿¬°á ´Ý±â
+            # DB ï¿½ï¿½ï¿½ï¿½ ï¿½Ý±ï¿½
             self.cursor.close()
 
-            self.logger.debug('¾÷µ¥ÀÌÆ®°¡ ³¡³µ½À´Ï´Ù.')
+            self.logger.debug('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.')
         except Exception as e:
             self.log_update(e.__doc__ + ' '+ e.__str__())
             self.util.print_error_log(str(e))
 
 
-    # ÄÃ·º¼Ç ·Îµå
+    # ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Îµï¿½
     def getQueryList(self,_query):
         print("def getQueryList(self,_query):")
         try:
@@ -76,16 +75,16 @@ class DBO(LOGGER) :
             self.cursor = self.__connection.cursor()
             self.cursor.execute(_query)
             result = self.cursor.fetchall()
-            # DB ¿¬°á ´Ý±â
+            # DB ï¿½ï¿½ï¿½ï¿½ ï¿½Ý±ï¿½
             self.cursor.close()
-            self.logger.debug('¾÷µ¥ÀÌÆ®°¡ ³¡³µ½À´Ï´Ù.')
+            self.logger.debug('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.')
             return result
         except Exception as e:
             print("[error] : " + str(e))
             self.log_update(e.__doc__ + ' '+ e.__str__())
             self.util.print_error_log(str(e))
 
-    # ¾ÆÀÌÅÛ ·Îµå
+    # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
     def getQuery(self,_query,_param=[]):
         try:
             self.cursor = self.__connection.cursor()
@@ -94,7 +93,7 @@ class DBO(LOGGER) :
 
             result = self.cursor.fetchone()
 
-            # DB ¿¬°á ´Ý±â
+            # DB ï¿½ï¿½ï¿½ï¿½ ï¿½Ý±ï¿½
             self.cursor.close()
             return result
         except Exception as e:

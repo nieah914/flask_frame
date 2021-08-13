@@ -1,5 +1,3 @@
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtWidgets import QMessageBox
 import pymysql.cursors
 import time
 import os

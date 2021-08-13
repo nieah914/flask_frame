@@ -1,5 +1,4 @@
 from flask import Flask, render_template , request
-from flask_bootstrap import Bootstrap
 from sql.sql_tools import QueryManager
 import json
 import asyncio
@@ -24,8 +23,15 @@ api.add_namespace(CodeMaster, '/admin/codeMaster')
 api.add_namespace(Main, '/')
 api.add_namespace(POPUP_MAMUL, '/mamul_desc')
 
-Bootstrap(app)
 
+@app.route('/juja')
+def view_juja():
+    return render_template('index.html')
+
+
+@app.route('/juja2')
+def view_juja2():
+    return render_template('widgets.html')
 
 @app.route('/default3')
 def view_default3():
@@ -39,6 +45,9 @@ def view_default2():
 def main():
     return render_template('view01.html')
 
+@app.route('/test')
+def test23():
+    return render_template('test.html')
 @app.route('/login')
 def login():
     return render_template('auth_login.html')
@@ -120,4 +129,4 @@ def main2():
 
 
 if __name__=='__main__':
-    app.run(debug=False,host='0.0.0.0',port='8080')
+    app.run(debug=True,host='0.0.0.0',port='8080')
